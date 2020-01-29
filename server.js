@@ -24,13 +24,19 @@ app.use(express.static("public"));
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/grape-scrapedb", { useNewUrlParser: true });
 
+// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+// mongoose.connect(MONGODB_URI);
+
+
 //==========================================================================
 // ROUTES FOR SCRAPING ARTICLES
 //============================================================================
 
 
 // A GET route for scraping the winebiz website
-app.get("/", function (req, res) {
+app.get("/scrape", function (req, res) {
     // First, we grab the body of the html with axios
     axios.get("https://www.winebusiness.com/news/").then(function (response) {
         // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -40,21 +46,28 @@ app.get("/", function (req, res) {
         // Now, we grab every .wb-section-item-title class within the td tag, and do the following:
         $("td").each(function (i, element) {
             // Save an empty result object
-            var result = {}
+            var result = [];
 
             // Add the text and href of every link, and save them as properties of the result object
-            result.title = $(element)
+            var title = $(element)
+                .find(".wb-section-item-title")
                 .children("a")
                 .text();
-            result.link = $(element)
-                .children("a")
+            var link = $(element)
+                .find("a")
                 .attr("href");
-            result.synopsis = $(element)
-                .children("p")
-                .attr("wb-break-word")
+            var summary = $(element)
+                .find(".wb-break-word")
                 .text();
 
-            console.log(result.synopsis)
+            // Save these results in an object that we'll push into the results array we defined earlier
+            result.push({
+                title,
+                link,
+                summary
+            });
+
+            console.log(result)
             // Create a new Article using the `result` object built from scraping
             db.Article.create(result)
                 .then(function (dbArticle) {
@@ -86,6 +99,25 @@ app.get("/articles", function (req, res) {
         }
     });
 });
+
+// Route for clearing all Articles from the db
+app.get("/clearall", function (req, res) {
+    // Remove every note from the notes collection
+    db.Article.remove({}, function (error, response) {
+        // Log any errors to the console
+        if (error) {
+            console.log(error);
+            res.send(error);
+        }
+        else {
+            // Otherwise, send the mongojs response to the browser
+            // This will fire off the success function of the ajax request
+            console.log(response);
+            res.send(response);
+        }
+    });
+});
+
 
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function (req, res) {

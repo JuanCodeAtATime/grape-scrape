@@ -24,7 +24,7 @@ margin-bottom: 50px;
 }
 
 h5 {
-  color: whitesmoke;
+  color: #58427C;
 }
 
 h6 {
@@ -84,12 +84,18 @@ footer {
   /* background-color:  #58427C; */
 }
 
+p.story-summ {
+
+  padding: 6px;
+}
+
 section {
   background-color: rgba(255,255,255, 0.8);
   border-radius: 4px;  
+  padding: 8px;
 }
 
-.scrapeBtn {
+.scrapeBtn, .clearBtn {
   background-color: #58427C;
   border-radius: 4px;  
   /* display: inline-block; */
@@ -104,8 +110,10 @@ section {
   padding: 6px;
 }
 
-
-button.storyBtn {
+button.saveStory, button.storyStory {
+  /* padding-bottom: 2px;   */
+  margin-bottom: 6px;
+  margin-left: 6px;
   color: whitesmoke;
   text-decoration: none;
 }
@@ -114,10 +122,11 @@ div.scroll {
   margin:15px, 4px; 
   padding:4px;   
   width: auto; 
-  height: 500px; 
+  height: 600px; 
   overflow-x: hidden; 
   overflow-x: auto; 
   text-align:justify; 
   border-bottom: 4px solid #58427C;
   
 } 
+

@@ -1,17 +1,22 @@
 // Grab the articles as a json
-$.getJSON("/articles", function (data) {
-    // For each one
-    for (var i = 0; i < data.length; i++) {
-        baseURL = "https://www.winebusiness.com"
-        storyURL = baseURL + data[i].link;
-        // Display the apropos information on the page
-        $("#articles").append("<section><h6 data-id='" + data[i]._id + "'>" + data[i].title + "<hr>" + "<a href='" + storyURL + "'><button type='button' class='bg-light storyBtn'>Go to Story</a>" + "</section></h6>");
 
-        //Add this into the button above as soon as it's fixed: data[i].synopsis +
-        console.log(data[i].synopsis)
+function reloadArticles() {
+    $.getJSON("/articles", function (data) {
+        // For each one
+        for (var i = 0; i < data.length; i++) {
+            baseURL = "https://www.winebusiness.com"
+            storyURL = baseURL + data[i].link;
+            // Display the apropos information on the page
+            $("#articles").append("<section><h5 data-id='" +
+                data[i]._id + "'>" + data[i].title + "</h5>" + "<p class='story-summ'>" + data[i].summary + "<hr>" + "<a href='" +
+                storyURL + "'><button type='button' class='bg-danger storyBtn'>Go to Story</a>" +
+                "<button type='button' class='bg-primary storyBtn saveStory'>Save Story</button>" +
+                "</section></p>");
+        }
+    });
+}
 
-    }
-});
+
 
 
 // Whenever someone clicks a p tag
@@ -76,3 +81,37 @@ $(document).on("click", "#savenote", function () {
     $("#titleinput").val("");
     $("#bodyinput").val("");
 });
+
+
+
+// $(document).ready(function () {
+
+//     // $(document).on("click", ".btn.save", handleArticleSave);
+$(document).on("click", ".scrapeBtn", scrapeArticles);
+$(document).on("click", ".clearBtn", clearArticles);
+var articleDump = $(".article-dump");
+
+
+// }
+
+function scrapeArticles() {
+    // This function handles the user clicking any "scrape new article" buttons      
+    $.get("/scrape").then(function (data) {
+        articleDump.empty();
+        reloadArticles();
+        //Create function for loading bar
+        console.log("Scrape Articles button clicked")
+
+    });
+}
+
+function clearArticles() {
+    $.get("/clearall").then(function () {
+        articleDump.empty();
+        console.log("Clear Articles button clicked")
+        //Create function to write inner html message informing user there's nothing to show
+        // reloadArticles();
+    });
+}
+
+
