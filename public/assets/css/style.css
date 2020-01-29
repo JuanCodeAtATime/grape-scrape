@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-margin-bottom: 100px;
+margin-bottom: 50px;
 }
 
 
@@ -18,28 +18,19 @@ margin-bottom: 100px;
 .survey-bg {
   background: rgba(0, 0, 0, 0.5);
   min-width: 390px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  padding: 10px;
 }
 
 h5 {
   color: whitesmoke;
 }
 
-a:link {
-  text-decoration: none;
+h6 {
+  padding: 5px;
 }
 
-a:visited {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-a:active {
-  text-decoration: none;
-}
 
 .navbar {
   background-color: rgba(255,255,255, 0.8);
@@ -50,17 +41,6 @@ li.nav-item {
   margin: 2px;
 }
 
-.quote {
-  color: black;
-}
-
-
-.title {   
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: whitesmoke;
-   
-   
-}
 
 .tagline {
     font-family:'Jim Nightshade', cursive; 
@@ -78,24 +58,6 @@ li.nav-item {
   cursor: pointer;
 }
 
-/* login and sign up buttons */
-.homeBtns, h6 {
-    color: whitesmoke;
-    font-family: Arial, Helvetica, sans-serif;
-    text-decoration: none;
-  
-
-}  
-
-
-
-#search, #homeInput {
-  /* display: block; */
-  margin-bottom: 10px;
-  width: 100%;
-  border-radius: 5px;
-  padding: 6px;
-}
 
 
 
@@ -105,38 +67,57 @@ li.nav-item {
 }
 
  
-  
-  .content {
-    position: absolute; /* Position the background text */
-    bottom: 0; /* At the bottom. Use top:0 to append it to the top */
-    top: 0;
-    color: #f1f1f1; /* Grey text */   
-    padding: 22px; /* Some padding */
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-weight: 100;
-    margin: 0 auto; /* Center it */  
-    opacity: 0.85;
-    transition: 0.3s;
-   
-  }   
-    
-    .content:hover {opacity: 1; cursor: pointer;}
-
-
-
-
 
 footer {
   padding: 14px;  
-  color: whitesmoke;
-  background: rgba(0, 0, 0, 0.5);
+  color: #58427C;
+  background-color: rgba(255,255,255, 0.8);
   text-align: center;  
   width: 100%;
-  border-top: 5px solid #58427C;     
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;  
-  margin-top: 450px;
+  border-top: 4px solid #58427C;     
+  font-family: Arial, Helvetica, sans-serif;  
+  margin-top: 150px;
+}
+
+#articles {
+  color: #58427C;  
+  /* background-color:  #58427C; */
+}
+
+section {
+  background-color: rgba(255,255,255, 0.8);
+  border-radius: 4px;  
+}
+
+.scrapeBtn {
+  background-color: #58427C;
+  border-radius: 4px;  
+  /* display: inline-block; */
+  width: 100%;
+  margin-top: 10px;
+  color: whitesmoke;
+  
+
+}
+
+.purpleBtn {
+  padding: 6px;
 }
 
 
+button.storyBtn {
+  color: whitesmoke;
+  text-decoration: none;
+}
 
+div.scroll { 
+  margin:15px, 4px; 
+  padding:4px;   
+  width: auto; 
+  height: 500px; 
+  overflow-x: hidden; 
+  overflow-x: auto; 
+  text-align:justify; 
+  border-bottom: 4px solid #58427C;
+  
+} 

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link href="https://fonts.googleapis.com/css?family=Bilbo+Swash+Caps|Jim+Nightshade|Rock+Salt&display=swap"
         rel="stylesheet">
@@ -24,20 +23,33 @@
         <h1 class='tagline'>The Grape Scrape</h1>
 
         <div class="list">
-            <a class="scrape"><i class="fa fa fa-file-text-o"></i><em> Scrape New Articles!</em></a>
-            <a class="clear-articles"><i class="fa fa-fw fa-refresh"></i> Clear Articles</a>
-            <a class="saved"><i class="fa far fa-folder"></i> Saved Articles </a>
+            <a class="scrape"><i class="fa far fa-home"></i> Home </a>
+            <a class="saved"><i class="fa far fa-folder"></i> My Saved Articles</a>
         </div>
     </div>
 
 
     <!-- SECTION 1 -->
-    <div class="container section1 survey-bg">
-
-        <div id="articles"></div>
-        <div id="notes"></div>
-
-
+    <div class="container section1">
+        <div class="row">
+            <div class="col-md-4 topBtn">
+                <button type="button" class="scrapeBtn">
+                    <h4 class="purpleBtn"><i class="fa fa fa-file-text-o"></i> Scrape New
+                        Articles!</h4>
+                </button>
+            </div>
+            <div class="col-md-4 topBtn">
+                <button type="button" class="scrapeBtn">
+                    <h4 class="purpleBtn"><i class="fa fa-fw fa-refresh"></i> Clear Articles!</h4>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 survey-bg scroll">
+                <div id="articles"></div>
+                <div id="notes"></div>
+            </div>
+        </div>
     </div>
 
     <footer>

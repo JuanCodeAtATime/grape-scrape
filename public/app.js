@@ -2,8 +2,14 @@
 $.getJSON("/articles", function (data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
+        baseURL = "https://www.winebusiness.com"
+        storyURL = baseURL + data[i].link;
         // Display the apropos information on the page
-        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+        $("#articles").append("<section><h6 data-id='" + data[i]._id + "'>" + data[i].title + "<hr>" + "<a href='" + storyURL + "'><button type='button' class='bg-light storyBtn'>Go to Story</a>" + "</section></h6>");
+
+        //Add this into the button above as soon as it's fixed: data[i].synopsis +
+        console.log(data[i].synopsis)
+
     }
 });
 

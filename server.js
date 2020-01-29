@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/grape-scrape", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/grape-scrapedb", { useNewUrlParser: true });
 
 //==========================================================================
 // ROUTES FOR SCRAPING ARTICLES
@@ -30,26 +30,31 @@ mongoose.connect("mongodb://localhost/grape-scrape", { useNewUrlParser: true });
 
 
 // A GET route for scraping the winebiz website
-app.get("/scrape", function (req, res) {
+app.get("/", function (req, res) {
     // First, we grab the body of the html with axios
     axios.get("https://www.winebusiness.com/news/").then(function (response) {
         // Then, we load that into cheerio and save it to $ for a shorthand selector
         var $ = cheerio.load(response.data);
+        console.log(response)
 
-        // Now, we grab every div within a td tag, and do the following:
-        $("td .wb-section-item-title").each(function (i, element) {
+        // Now, we grab every .wb-section-item-title class within the td tag, and do the following:
+        $("td").each(function (i, element) {
             // Save an empty result object
-            var result = {};
-            console.log("This is the result.title: " + result.title + "This is the response: " + response)
+            var result = {}
 
             // Add the text and href of every link, and save them as properties of the result object
-            result.title = $(this)
+            result.title = $(element)
                 .children("a")
                 .text();
-            result.link = $(this)
+            result.link = $(element)
                 .children("a")
                 .attr("href");
+            result.synopsis = $(element)
+                .children("p")
+                .attr("wb-break-word")
+                .text();
 
+            console.log(result.synopsis)
             // Create a new Article using the `result` object built from scraping
             db.Article.create(result)
                 .then(function (dbArticle) {
