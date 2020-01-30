@@ -20,7 +20,9 @@
 
 <body>
     <div class="navbar logoRow">
-        <h1 class='tagline'>The Grape Scrape</h1>
+        <h1 class='tagline'>The Grape Scrape</h1><span>
+            <h5><em>The Latest Buzz on the Wine Biz</em></h5>
+        </span>
 
         <div class="list">
             <a class="scrape"><i class="fa far fa-home"></i> Home </a>
@@ -32,21 +34,26 @@
     <!-- SECTION 1 -->
     <div class="container section1">
         <div class="row">
-            <div class="col-md-4 topBtn">
+            <div class="col-md-6 topBtn">
                 <button type="button" class="scrapeBtn">
                     <h4 class="purpleBtn"><i class="fa fa fa-file-text-o"></i> Scrape New
                         Articles!</h4>
                 </button>
             </div>
-            <div class="col-md-4 topBtn">
+            <div class="col-md-6 topBtn">
                 <button type="button" class="clearBtn">
                     <h4 class="purpleBtn"><i class="fa fa-fw fa-refresh"></i> Clear Articles!</h4>
                 </button>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 survey-bg scroll">
-                <div class="article-dump" id="articles"></div>
+            <div class="col-md-12 survey-bg scroll">
+                <div class="article-dump" id="articles">
+                    <span id="disappear">
+                        <h3>Nothing to see hear...<br>Hit <em>'Scrape New Articles'</em> to catch the latest buzz!</h3>
+                    </span>
+
+                </div>
                 <div id="notes">
                 </div>
             </div>

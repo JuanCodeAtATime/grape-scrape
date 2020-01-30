@@ -1,4 +1,4 @@
-// Grab the articles as a json
+// Function to grab the scraped wine articles as a json
 
 function reloadArticles() {
     $.getJSON("/articles", function (data) {
@@ -16,6 +16,64 @@ function reloadArticles() {
     });
 }
 
+
+$(document).on("click", ".saveStory", saveArticles);
+$(document).on("click", ".scrapeBtn", scrapeArticles);
+$(document).on("click", ".clearBtn", clearArticles);
+var articleDump = $(".article-dump");
+
+
+
+function scrapeArticles() {
+    // This function handles the user clicking any "scrape new article" buttons      
+    $.get("/scrape").then(function (data) {
+        articleDump.empty();
+        reloadArticles();
+        // document.getElementById("disappear").innerHTML = "";
+        //Create function for loading bar
+        console.log("Scrape Articles button clicked")
+
+    });
+}
+
+function clearArticles() {
+    $.get("/clearall").then(function () {
+        articleDump.empty();
+        document.getElementById("articles").innerHTML =
+            "<h3>" + "Nothing to see hear..." +
+            "<br>" + "Hit" + "<em>" + " 'Scrape New Articles' " + "</em>" + "to catch the latest buzz!" +
+            "</h3>";
+        console.log("Clear Articles button clicked")
+        //Create function to write inner html message informing user there's nothing to show
+        // reloadArticles();
+    });
+}
+
+function saveArticles() {
+    // Function to save articles by data-id   
+    var articleToSave = $(this)
+        .parents("section")
+        .data();
+
+    // Remove card from page
+    $(this)
+        .parents("section")
+        .remove();
+
+    articleToSave.saved = true;
+    // Using a patch method to be semantic since this is an update to an existing record in our collection
+    $.ajax({
+        method: "PUT",
+        url: "/api/articles/" + articleToSave._id,
+        data: articleToSave
+    }).then(function (data) {
+        // If the data was saved successfully
+        if (data.saved) {
+            // Run the reloadArticles function again to reload the wine articles
+            reloadArticles();
+        }
+    });
+}
 
 
 
@@ -82,36 +140,5 @@ $(document).on("click", "#savenote", function () {
     $("#bodyinput").val("");
 });
 
-
-
-// $(document).ready(function () {
-
-//     // $(document).on("click", ".btn.save", handleArticleSave);
-$(document).on("click", ".scrapeBtn", scrapeArticles);
-$(document).on("click", ".clearBtn", clearArticles);
-var articleDump = $(".article-dump");
-
-
-// }
-
-function scrapeArticles() {
-    // This function handles the user clicking any "scrape new article" buttons      
-    $.get("/scrape").then(function (data) {
-        articleDump.empty();
-        reloadArticles();
-        //Create function for loading bar
-        console.log("Scrape Articles button clicked")
-
-    });
-}
-
-function clearArticles() {
-    $.get("/clearall").then(function () {
-        articleDump.empty();
-        console.log("Clear Articles button clicked")
-        //Create function to write inner html message informing user there's nothing to show
-        // reloadArticles();
-    });
-}
 
 
