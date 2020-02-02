@@ -123,7 +123,7 @@ $(document).ready(function () {
             method: "POST",
             url: "/saved-articles/" + thisId,
             data: {
-                // Value taken from title input
+                // Value taken from title input               
                 title: $("#titleinput").val(),
                 // Value taken from note textarea
                 body: $("#bodyinput").val()
