@@ -118,6 +118,10 @@ button.saveStory, button.storyStory {
   text-decoration: none;
 }
 
+.del-article-btn {
+  margin-right: 4px;
+}
+
 div.scroll { 
   margin:15px, 4px; 
   padding:4px;   

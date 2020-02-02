@@ -61,14 +61,3 @@
                             [Symbol(mongoose:validatorError)]: true } },
                       _message: 'Article validation failed',
                       name: 'ValidationError' }
-{ValidationError: Article validation failed: title: Path `title` is required., link: Path `link` is required., summary: Path `summary` is required.
-                                                    at ValidationError.inspect (C:\Users\John Rivera\Documents\grape-scrape\node_modules\mongoose\lib\error\validation.js:61:24)
-                                                    at formatValue (internal/util/inspect.js:491:31)
-                                                    at inspect (internal/util/inspect.js:189:10)
-                                                    at Object.formatWithOptions (util.js:84:12)
-                                                    at Console.(anonymous function) (console.js:191:15)
-                                                    at Console.log (console.js:202:31)
-                                                    at C:\Users\John Rivera\Documents\grape-scrape\server.js:79:29
-                                                    at process._tickCallback (internal/process/next_tick.js:68:7)
-                                                  errors:
-   {title:
