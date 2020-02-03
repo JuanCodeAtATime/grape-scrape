@@ -167,22 +167,22 @@ app.get("/clearall", function (req, res) {
 
 
 
-// // Route for grabbing a specific Article by id, populate it with it's note
-// app.get("/saved-articles/:id", function (req, res) {
-//     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-//     db.Savedarticle.findOne(req.body)
-//         // ..and populate all of the notes associated with it
-//         .populate("Note")
-//         .then(function (dbSavedarticle) {
-//             // If we were able to successfully find an Article with the given id, send it back to the client
-//             console.log("Here's the saved article, ie, dbSavedArticle: " + dbSavedarticle)
-//             res.json(dbSavedarticle);
-//         })
-//         .catch(function (err) {
-//             // If an error occurred, send it to the client
-//             res.json(err);
-//         });
-// });
+// Route for grabbing a specific Article by id, populate it with it's note
+app.get("/saved-articles/:id", function (req, res) {
+    // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+    db.Savedarticle.findOne(req.body)
+        // ..and populate all of the notes associated with it
+        .populate("Note")
+        .then(function (dbSavedarticle) {
+            // If we were able to successfully find an Article with the given id, send it back to the client
+            console.log("Here's the saved article, ie, dbSavedArticle: " + dbSavedarticle)
+            res.json(dbSavedarticle);
+        })
+        .catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
+});
 
 
 // Route for saving/updating an Article's associated Note

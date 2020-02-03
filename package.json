@@ -10,6 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/JuanCodeAtATime/grape-scrape.git"
   },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "mocha": "^7.0.0"
+  },
   "author": "Juan Rivera",
   "license": "ISC",
   "bugs": {

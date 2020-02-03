@@ -142,3 +142,15 @@ span#disappear, h3 {
   margin-top: 10px;
 }
 
+#titleinput, #bodyinput, #savenote {
+  width: 100%;
+  margin-bottom: 4px;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+#savenote {
+  background-color: #58427C;
+  color: whitesmoke;
+  font-weight: bold;
+}

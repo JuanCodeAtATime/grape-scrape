@@ -95,11 +95,11 @@ $(document).ready(function () {
                 // The title of the article
                 $("#article-notes").append("<h4>" + title + "</h4>");
                 // An input to enter a new title
-                $("#article-notes").append("<input id='titleinput' name='title' placeholder='Note Title'>");
+                $("#article-notes").append("<input id='titleinput' name='title' placeholder='Give your note a cool title'>");
                 // A textarea to add a new note body
-                $("#article-notes").append("<textarea id='bodyinput' name='body' placeholder='Memorable note here'></textarea>");
+                $("#article-notes").append("<textarea id='bodyinput' name='body' placeholder='Write memorable note here'></textarea>");
                 // A button to submit a new note, with the id of the article saved to it
-                $("#article-notes").append("<button class='btn btn-primary' data-id='" + thisId + "' id='savenote'>Save Note</button>");
+                $("#article-notes").append("<button class='btn' data-id='" + thisId + "' id='savenote'>Save Note</button>");
 
                 // If there's a note in the article
                 if (data.note) {
