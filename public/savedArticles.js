@@ -68,10 +68,10 @@ $(document).ready(function () {
     // Whenever someone clicks My Notes button
     function myNotes() {
         var section = $(this).parents("section")
-        const title = section.find('h5').html();
-        const link = section.find('a').attr('href');
-        const summary = section.find('p').html();
-        const thisId = section.find('h5').attr("data-id");
+        const articleTitle = section.find('h5').html();
+        // const link = section.find('a').attr('href');
+        // const summary = section.find('p').html();
+        const id = section.find('h5').attr("data-id");
 
         // Empty the notes from the note section
         $("#article-notes").empty();
@@ -82,31 +82,30 @@ $(document).ready(function () {
             method: "GET",
             url: "/saved-articles/",
             data: {
-                saved: true,
-                title,
-                link,
-                summary
+                id
             }
         })
             // With that done, add the note information to the page
             .then(function (data) {
                 // console.log("==============================================================");
-                console.log("=======This is the 'id' being passed through: " + thisId);
+                console.log("=======This is the 'id' and title being passed through: " + id + " and " + articleTitle);
                 // The title of the article
-                $("#article-notes").append("<h4>" + title + "</h4>");
+                $("#article-notes").append("<h4>" + articleTitle + "</h4>");
                 // An input to enter a new title
                 $("#article-notes").append("<input id='titleinput' name='title' placeholder='Give your note a cool title'>");
                 // A textarea to add a new note body
                 $("#article-notes").append("<textarea id='bodyinput' name='body' placeholder='Write memorable note here'></textarea>");
                 // A button to submit a new note, with the id of the article saved to it
-                $("#article-notes").append("<button class='btn' data-id='" + thisId + "' id='savenote'>Save Note</button>");
+                $("#article-notes").append("<button class='btn' data-id='" + id + "' id='savenote'>Save Note</button>");
 
                 // If there's a note in the article
                 if (data.note) {
+                    console.log(data.note);
                     // Place the title of the note in the title input
-                    $("#titleinput").val(data.note.title);
+                    titleinput = $("#titleinput").val(data.note.title);
                     // Place the body of the note in the body textarea
-                    $("#bodyinput").val(data.note.body);
+                    bodyinput = $("#bodyinput").val(data.note.body);
+                    console.log("This is the title input, line 108 savedArticles.js file " + titleinput);
                 }
             });
     }
@@ -114,15 +113,14 @@ $(document).ready(function () {
     // When you click the savenote button
     function saveMyNote() {
         // Grab the id associated with the article from the submit button
-        var section = $(this).parents("section")
-        const thisId = section.find('h5').attr("data-id");
-
-
+        const section = $(this).parents("section");
+        const id = section.find('h5').attr("data-id");
         // Run a POST request to change the note, using what's entered in the inputs
         $.ajax({
             method: "POST",
-            url: "/saved-articles/" + thisId,
+            url: "/saved-articles/",
             data: {
+                id,
                 // Value taken from title input               
                 title: $("#titleinput").val(),
                 // Value taken from note textarea
@@ -132,7 +130,7 @@ $(document).ready(function () {
             // With that done
             .then(function (data) {
                 // Log the response
-                console.log(data);
+                console.log("This is the data.note on LINE 135, savedArticles.js file " + data);
                 // Empty the notes section
                 $("#article-notes").empty();
             });

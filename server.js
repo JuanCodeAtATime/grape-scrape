@@ -128,46 +128,8 @@ app.get("/clearall", function (req, res) {
     });
 });
 
-// // Route for grabbing a specific Article by id, populate it with it's note
-// app.get("/saved-articles/:id", function (req, res) {
-//     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-//     db.Savedarticle.findOne({ _id: req.params.id })
-//         // ..and populate all of the notes associated with it
-//         .populate("note")
-//         .then(function (dbSavedarticle) {
-//             // If we were able to successfully find an Article with the given id, send it back to the client
-//             res.json(dbSavedarticle);
-//         })
-//         .catch(function (err) {
-//             // If an error occurred, send it to the client
-//             res.json(err);
-//         });
-// });
 
-// // Route for saving/updating an Article's associated Note
-// app.post("/saved-articles/:id", function (req, res) {
-//     // Create a new note and pass the req.body to the entry
-//     db.Note.create(req.body)
-//         .then(function (dbNote) {
-//             // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
-//             // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-//             // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-//             return db.Savedarticle.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
-//         })
-//         .then(function (dbSavedarticle) {
-//             // If we were able to successfully update an Article, send it back to the client
-//             res.json(dbSavedarticle);
-//         })
-//         .catch(function (err) {
-//             // If an error occurred, send it to the client
-//             res.json(err);
-//         });
-// });
-
-
-
-
-// Route for grabbing a specific Article by id, populate it with it's note
+// Route for grabbing a Saved Article via 'My Notes' button to see or populate it's note
 app.get("/saved-articles/:id", function (req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
     db.Savedarticle.findOne(req.body)
@@ -184,28 +146,34 @@ app.get("/saved-articles/:id", function (req, res) {
         });
 });
 
-
 // Route for saving/updating an Article's associated Note
-app.post("/saved-articles/:id", function (req, res) {
-    console.log("------------> Here is the req.body of the Note being posted: " + req.body)
+app.post("/saved-articles/", function (req, res) {
     // Create a new note and pass the req.body to the entry
-    db.Note.create(req.body)
+    const { id, title, body } = req.body;
+    db.Note.create({ title, body })
         .then(function (dbNote) {
-
-            // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
+            // If a Note was created successfully, find one Savedarticle with an `_id` equal to mongoose.Types.ObjectId(id) . Update the Article to be associated with the new Note
             // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
             // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-            return db.Savedarticle.findOneAndUpdate({ _id: req.body }, { note: dbNote._id }, { new: true });
+            return db.Savedarticle
+                .findOneAndUpdate(
+                    { _id: mongoose.Types.ObjectId(id) },
+                    { $push: { note: dbNote._id } },
+                    { new: true }
+                );
         })
         .then(function (dbSavedarticle) {
             // If we were able to successfully update an Article, send it back to the client
             res.json(dbSavedarticle);
+            console.log("LN 168, server.js file.  This is the dbSavedArticle " + dbSavedarticle)
         })
         .catch(function (err) {
             // If an error occurred, send it to the client
             res.json(err);
         });
 });
+
+
 
 // POST route for saving a newly scraped article to the Savedarticles  
 app.post("/submit", function (req, res) {

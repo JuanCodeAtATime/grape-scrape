@@ -154,3 +154,7 @@ span#disappear, h3 {
   color: whitesmoke;
   font-weight: bold;
 }
+#saved-title, #saved-body {
+  color: whitesmoke;
+  
+}
